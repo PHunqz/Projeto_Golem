@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo dos Golens</title>
+  <script>
+    let golens = [0, 2, 1, 0, 2]; // Estados iniciais dos golens
+
+    function mudarEstado(golemIndex) {
+      golens[golemIndex] = (golens[golemIndex] + 1) % 3;
+      atualizarGolens();
+    }
+
+    function atualizarGolens() {
+      document.getElementById('golem1').innerText = estadoNome(golens[0]);
+      document.getElementById('golem2').innerText = estadoNome(golens[1]);
+      document.getElementById('golem3').innerText = estadoNome(golens[2]);
+      document.getElementById('golem4').innerText = estadoNome(golens[3]);
+      document.getElementById('golem5').innerText = estadoNome(golens[4]);
+      verificarAlinhamento();
+    }
+
+    function estadoNome(estado) {
+      switch (estado) {
+        case 0: return "Sentado";
+        case 1: return "Agachado";
+        case 2: return "Em Pé";
+      }
+    }
+
+    function verificarAlinhamento() {
+      if (golens[0] === 2 && golens[1] === 0 && golens[2] === 1 && golens[3] === 2 && golens[4] === 0) {
+        document.getElementById('resultado').innerText = "Os golens estão alinhados! O caminho está livre.";
+      } else {
+        document.getElementById('resultado').innerText = "Os golens ainda não estão alinhados.";
+      }
+    }
+  </script>
+</head>
+<body onload="atualizarGolens()">
+  <h1>Jogo dos Golens</h1>
+  <p>Interaja com as pedras para mudar a posição dos golens:</p>
+  <button onclick="mudarEstado(0); mudarEstado(2);">Interagir com Pedra A</button>
+  <button onclick="mudarEstado(1); mudarEstado(2);">Interagir com Pedra B</button>
+  <button onclick="mudarEstado(1); mudarEstado(3);">Interagir com Pedra C</button>
+  <button onclick="mudarEstado(0); mudarEstado(2); mudarEstado(4);">Interagir com Pedra D</button>
+  <button onclick="mudarEstado(3); mudarEstado(4);">Interagir com Pedra E</button>
+
+  <h2>Estado dos Golens:</h2>
+  <p>Golem 1: <span id="golem1"></span></p>
+  <p>Golem 2: <span id="golem2"></span></p>
+  <p>Golem 3: <span id="golem3"></span></p>
+  <p>Golem 4: <span id="golem4"></span></p>
+  <p>Golem 5: <span id="golem5"></span></p>
+
+  <h3 id="resultado"></h3>
+</body>
+</html>
